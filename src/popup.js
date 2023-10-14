@@ -1,6 +1,3 @@
-/* 常量定义 */
-const URL_CANBEREFRESH = ["chrome://newtab/", "edge://newtab/"];
-
 /**
  * i18n
  */
@@ -15,15 +12,12 @@ function popupLoadInnerText () {
     document.getElementById("label_multi").textContent = chrome.i18n.getMessage("ui_label_multi", USER_LANGUAGE);
     document.getElementById("label_folder").innerText = chrome.i18n.getMessage("ui_label_folder", USER_LANGUAGE);
     document.getElementById("input_folder").setAttribute("title", chrome.i18n.getMessage("ui_input_folder_title", USER_LANGUAGE));
-    console.log("popup: nnnerText loaded.");
+    console.log("popup: innerText loaded.");
 }
 
-/**
- * DOM事件监听
- */
+/* DOM事件监听 */
 document.addEventListener("DOMContentLoaded", function () {
     popupLoadInnerText(); // 加载i18n
-    // newtabRefresh(); // 加载背景
 
     /**
      * 存储用户模式
@@ -38,20 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Error: UserMode.");
             return false;
         }
-    }
-
-    /**
-     * 刷新所有新标签页
-     */
-    function newtabRefresh () {
-        chrome.tabs.query({}, function (tabs) {
-            for (let tab of tabs) {
-                if (tab.url && URL_CANBEREFRESH.includes(tab.url)) {
-                    chrome.tabs.sendMessage(tab.id, { action: "refreshTab" });
-                }
-            }
-        });
-        console.log("newtab: refreshed.");
     }
 
     /**
@@ -92,12 +72,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* 文件导入 - 处理事件 */
     document.getElementById("input_file").addEventListener("change", function (event) {
-        // var files = event.target.files;
-        // if (files && files.length > 0) {
-        //     var url = URL.createObjectURL(files[0]); // 创建对象URL，解决大文件无法读取
-        //     funcSetUrl(url);
-        //     URL.revokeObjectURL(selectedFile);
-        // }
+        var files = event.target.files;
+        if (files && files.length > 0) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var url = reader.result;
+                databaseStore(KEY_IMAGE, url);
+            }
+            reader.readAsDataURL(files[0]);
+        }
     });
 
     /* 文件夹导入 - 处理事件 */
@@ -117,18 +100,10 @@ document.addEventListener("DOMContentLoaded", function () {
         //     alert(chrome.i18n.getMessage("actions_success"));
     });
 });
+
 /**
  * Links for test:
  * https://cdn.jsdelivr.net/gh/SaltApocalypse/CDN/WifeOnly/Test/1.png // png
  * https://cdn.jsdelivr.net/gh/SaltApocalypse/CDN/WifeOnly/Test/2.jpg // jpg
  * https://cdn.jsdelivr.net/gh/SaltApocalypse/CDN/WifeOnly/Test/2.png // **unavailable**
-*/
-/* 
-var files = event.target.files;
-        if (files && files.length > 0) {
-            var url = URL.createObjectURL(files[0]); // 创建对象URL，解决大文件无法读取
-            funcSetUrl(url);
-            URL.revokeObjectURL(selectedFile);
-        }
-        // FIXME: blob临时图片问题
 */
