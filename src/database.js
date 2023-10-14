@@ -6,11 +6,10 @@ function databaseOpen () {
     return new Promise((resolve, reject) => {
         var openRequest = indexedDB.open('wifeonly', 1);
         openRequest.onupgradeneeded = function (event) {
-            var db = event.target.result;
-            db.createObjectStore('images'); // 创建对象存储
+            event.target.result.createObjectStore('main'); // 创建对象存储
         };
         openRequest.onerror = function (event) {
-            reject("数据库打开失败。");
+            reject("数据库：数据库打开失败。");
         };
         openRequest.onsuccess = function (event) {
             resolve(event.target.result);
@@ -24,18 +23,20 @@ function databaseOpen () {
  * @param {string} data 
  */
 function databaseStore (key, data) {
-    databaseOpen().then(function (db) {
-        var transaction = db.transaction(['images'], 'readwrite');
-        var store = transaction.objectStore('images');
-        var request = store.put(data, key);
-        request.onsuccess = function (event) {
-            console.log("数据库：数据存入成功。");
-        };
-        request.onerror = function (event) {
-            console.log("数据库：数据存入失败。");
-        };
-    }).catch(function (err) {
-        console.log(err);
+    return new Promise((resolve, reject) => {
+        databaseOpen().then(function (db) {
+            var transaction = db.transaction(['main'], 'readwrite');
+            var store = transaction.objectStore('main');
+            var request = store.put(data, key);
+            request.onsuccess = function (event) {
+                resolve("数据库：数据存入成功。");
+            };
+            request.onerror = function (event) {
+                reject(new Error("数据库：数据存入失败。"));
+            };
+        }).catch(function (error) {
+            reject(error);
+        });
     });
 }
 
@@ -44,22 +45,20 @@ function databaseStore (key, data) {
  * @param {string} key 
  */
 function databaseFetch (key) {
-    databaseOpen().then(function (db) {
-        var transaction = db.transaction(['images'], 'readonly');
-        var store = transaction.objectStore('images');
-        var request = store.get(key);
-        request.onsuccess = function (event) {
-            if (request.result) {
-                console.log("Data fetched successfully");
-                // 你可以使用 event.target.result 来获取到数据
-            } else {
-                console.log("No data found");
-            }
-        };
-        request.onerror = function (event) {
-            console.log("Error fetching data");
-        };
-    }).catch(function (err) {
-        console.log(err);
+    return new Promise((resolve, reject) => {
+        databaseOpen().then(function (db) {
+            var transaction = db.transaction(['main'], 'readonly');
+            var store = transaction.objectStore('main');
+            var request = store.get(key);
+            request.onsuccess = function (event) {
+                console.log("数据库：成功获取 " + key + "。");
+                resolve(request.result);
+            };
+            request.onerror = function (event) {
+                reject(new Error("数据库：获取失败。"));
+            };
+        }).catch(function (error) {
+            console.error(error);
+        });
     });
 }

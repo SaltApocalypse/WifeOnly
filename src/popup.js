@@ -16,37 +16,8 @@ function popupLoadInnerText () {
 }
 
 /* DOM事件监听 */
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     popupLoadInnerText(); // 加载i18n
-
-    /**
-     * 存储用户模式
-     * @param {number} mode - 0-默认 1-单图 2-本地随机图
-     */
-    function funcSetUserMode (mode) {
-        if (mode >= 0 && mode < 3) {
-            localStorage.setItem(KEY_USERMODE, mode);
-            return true;
-        }
-        else {
-            console.log("Error: UserMode.");
-            return false;
-        }
-    }
-
-    /**
-     * 用户模式1下，存储URL
-     * @param {string} url - 需要存储的URL
-     */
-    function funcSetUrl (url) {
-        localStorage.setItem(KEY_IMAGE, url);
-        if (true === funcSetUserMode(1)) {
-            alert(chrome.i18n.getMessage("actions_success"));
-            return true;
-        }
-        console.log("popup function: funcSetUrl ERROR.");
-        return false;
-    }
 
     /* url输入 - 处理事件 */
     document.getElementById("btn_url").addEventListener("click", function () {
@@ -57,14 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
             try { // URL有效性检测
                 const RESPONSE = await fetch(inputUrl, { method: 'HEAD' });
                 if (RESPONSE.status === 200) {
-                    if (true === funcSetUrl(inputUrl)) {
-                        newtabRefresh();
-                    }
+                    await databaseStore(KEY_IMAGE, inputUrl);
+                    await databaseStore(KEY_USERMODE, '1');
+                    newtabRefresh();
+                    alert(chrome.i18n.getMessage("actions_success"));
                 }
                 else {
                     alert(chrome.i18n.getMessage("actions_notapic"));
                 }
-            } catch { // 无网络链接的时候会导致无法检测// 无网络链接的时候会导致无法检测
+            } catch { // 无网络链接的时候会导致无法检测
                 alert(chrome.i18n.getMessage("actions_networkerror"));
             }
         }
@@ -78,6 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
             reader.onload = function () {
                 var url = reader.result;
                 databaseStore(KEY_IMAGE, url);
+                databaseStore(KEY_USERMODE, '1');
+                newtabRefresh();
+                alert(chrome.i18n.getMessage("actions_success"));
             }
             reader.readAsDataURL(files[0]);
         }
@@ -85,19 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* 文件夹导入 - 处理事件 */
     document.getElementById("input_folder").addEventListener("change", function (event) {
-        //     var files = event.target.files;
-        //     var imageURLs = []; // 图片列表
-        //     for (var i = 0; i < files.length; i++) {
-        //         var file = files[i];
-        //         if (file.type.startsWith('image/')) { // 检查文件类型以确保它是一个图片
-        //             var objectUrl = URL.createObjectURL(file);
-        //             imageURLs.push(objectUrl);
-        //         }
-        //     }
-        //     localStorage.setItem('imageURLs', JSON.stringify(imageURLs));
-        //     funcSetUserMode(2);
-        //     newtabRefresh();
-        //     alert(chrome.i18n.getMessage("actions_success"));
     });
 });
 
