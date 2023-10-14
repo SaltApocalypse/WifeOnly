@@ -56,12 +56,12 @@ document.addEventListener("DOMContentLoaded", function () {
             //         target.style.background = 'url(' + selectedImageUrl + ')';
             //     }
         }
+        console.log("newtab: usermode " + user_mode + " loaded.");
 
         target.style.backgroundSize = "cover";
         target.style.backgroundRepeat = "no-repeat";
         target.style.backgroundPosition = "center 60%";
         target.style.backgroundAttachment = "fixed";
-        newtabRefresh();
     }
 
     newtabLoad(); // 启动时加载

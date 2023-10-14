@@ -4,7 +4,7 @@ const URL_CANBEREFRESH = ["chrome://newtab/", "edge://newtab/"];
 /**
  * i18n
  */
-function loadInnerText () {
+function popupLoadInnerText () {
     document.getElementById("label_single").textContent = chrome.i18n.getMessage("ui_label_single", USER_LANGUAGE);
     document.getElementById("label_url").textContent = chrome.i18n.getMessage("ui_label_url", USER_LANGUAGE);
     document.getElementById("input_url").placeholder = chrome.i18n.getMessage("ui_input_url", USER_LANGUAGE);
@@ -15,24 +15,29 @@ function loadInnerText () {
     document.getElementById("label_multi").textContent = chrome.i18n.getMessage("ui_label_multi", USER_LANGUAGE);
     document.getElementById("label_folder").innerText = chrome.i18n.getMessage("ui_label_folder", USER_LANGUAGE);
     document.getElementById("input_folder").setAttribute("title", chrome.i18n.getMessage("ui_input_folder_title", USER_LANGUAGE));
+    console.log("popup: nnnerText loaded.");
 }
 
 /**
  * DOM事件监听
  */
 document.addEventListener("DOMContentLoaded", function () {
-    loadInnerText(); // 加载i18n
+    popupLoadInnerText(); // 加载i18n
     // newtabRefresh(); // 加载背景
 
     /**
-     * 用户模式设置
+     * 存储用户模式
      * @param {number} mode - 0-默认 1-单图 2-本地随机图
      */
-    function setUserMode (mode) {
-        if (mode >= 0 && mode < 3)
+    function funcSetUserMode (mode) {
+        if (mode >= 0 && mode < 3) {
             localStorage.setItem(KEY_USERMODE, mode);
-        else
-            console.log("Error: UserMode.")
+            return true;
+        }
+        else {
+            console.log("Error: UserMode.");
+            return false;
+        }
     }
 
     /**
@@ -46,29 +51,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
+        console.log("newtab: refreshed.");
     }
 
     /**
-     * 用户模式1下，修改成功并存储URL
+     * 用户模式1下，存储URL
      * @param {string} url - 需要存储的URL
      */
-    function storeURL (url) {
+    function funcSetUrl (url) {
         localStorage.setItem(KEY_IMAGE, url);
-        setUserMode(1);
-        newtabRefresh();
-        alert(chrome.i18n.getMessage("actions_success"));
+        if (true === funcSetUserMode(1)) {
+            alert(chrome.i18n.getMessage("actions_success"));
+            return true;
+        }
+        console.log("popup function: funcSetUrl ERROR.");
+        return false;
     }
 
     /* url输入 - 处理事件 */
     document.getElementById("btn_url").addEventListener("click", function () {
-        var inputUrlValue = document.getElementById("input_url").value;
-        inputUrlValue === "" ? alert(chrome.i18n.getMessage("actions_notapic")) : handleUrlInput(); // 空检测
+        var inputUrl = document.getElementById("input_url").value;
+        inputUrl === "" ? alert(chrome.i18n.getMessage("actions_notapic")) : handleUrlInput(); // 空检测
 
         async function handleUrlInput () {
             try { // URL有效性检测
-                const RESPONSE = await fetch(inputUrlValue, { method: 'HEAD' });
+                const RESPONSE = await fetch(inputUrl, { method: 'HEAD' });
                 if (RESPONSE.status === 200) {
-                    storeURL(inputUrlValue);
+                    if (true === funcSetUrl(inputUrl)) {
+                        newtabRefresh();
+                    }
                 }
                 else {
                     alert(chrome.i18n.getMessage("actions_notapic"));
@@ -84,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // var files = event.target.files;
         // if (files && files.length > 0) {
         //     var url = URL.createObjectURL(files[0]); // 创建对象URL，解决大文件无法读取
-        //     storeURL(url);
+        //     funcSetUrl(url);
         //     URL.revokeObjectURL(selectedFile);
         // }
     });
@@ -101,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //         }
         //     }
         //     localStorage.setItem('imageURLs', JSON.stringify(imageURLs));
-        //     setUserMode(2);
+        //     funcSetUserMode(2);
         //     newtabRefresh();
         //     alert(chrome.i18n.getMessage("actions_success"));
     });
@@ -116,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
 var files = event.target.files;
         if (files && files.length > 0) {
             var url = URL.createObjectURL(files[0]); // 创建对象URL，解决大文件无法读取
-            storeURL(url);
+            funcSetUrl(url);
             URL.revokeObjectURL(selectedFile);
         }
         // FIXME: blob临时图片问题
