@@ -5,6 +5,9 @@
     "actions_success": {
         "message": "修改成功！"
     },
+    "actions_empty": {
+        "message": "输入不能为空！"
+    },
     "actions_notapic": {
         "message": "输入的不是有效的图片URL"
     },
@@ -32,9 +35,6 @@
     "ui_label_file": {
         "message": "或点击下方按钮载入本地文件："
     },
-    "ui_input_file_title": {
-        "message": "【提示】文件超过3.5M可能会导致问题出现"
-    },
     "ui_label_multi": {
         "message": ">>>选定文件夹内图片多图轮换作为背景"
     },
@@ -43,5 +43,14 @@
     },
     "ui_input_folder_title": {
         "message": "【警告】开发中实验功能"
+    },
+    "ui_label_api": {
+        "message": "或使用图片API获取图片："
+    },
+    "ui_input_api": {
+        "message": "在此处输入图片API地址"
+    },
+    "ui_btn_api": {
+        "message": "请求图片"
     }
 }

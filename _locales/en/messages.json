@@ -5,6 +5,9 @@
     "actions_success": {
         "message": "Modification successful!"
     },
+    "actions_empty": {
+        "message": "Input cannot be empty!"
+    },
     "actions_notapic": {
         "message": "The input is not a valid image URL"
     },
@@ -32,9 +35,6 @@
     "ui_label_file": {
         "message": "Or click the button below to load a local file:"
     },
-    "ui_input_file_title": {
-        "message": "Note: Files larger than 3.5MB may cause issues"
-    },
     "ui_label_multi": {
         "message": ">> Select images from a folder for slideshow"
     },
@@ -43,5 +43,14 @@
     },
     "ui_input_folder_title": {
         "message": "Warning: Experimental feature under development"
+    },
+    "ui_label_api": {
+        "message": "Or get images using a Image API:"
+    },
+    "ui_input_api": {
+        "message": "Enter the Image API address here"
+    },
+    "ui_btn_api": {
+        "message": "Fetch Image"
     }
 }

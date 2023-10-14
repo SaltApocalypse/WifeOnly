@@ -117,26 +117,80 @@
     }
 
     /* 多图标签 */
-    #label_multi {
+    /* #label_multi {
       position: absolute;
       top: 260px;
       left: 5%;
       font-size: 14px;
-    }
+    } */
 
     /* 多图本地文件夹 */
-    #label_folder {
+    /* #label_folder {
       position: absolute;
       top: 280px;
       left: 5%;
       font-size: 14px;
     }
-
     #input_folder {
       position: absolute;
       top: 300px;
       left: 5%;
+    } */
+
+    /* api标签 */
+    /* #label_api {
+      position: absolute;
+      top: 250px;
+      left: 5%;
+      font-size: 14px;
+    } */
+
+    /* api的设置按钮 */
+    /* #btn_api {
+      outline: none;
+      background-color: transparent;
+      border: 1px solid rgb(0, 0, 0, 0);
+      border-bottom: 1px solid #6588d7;
+      border-radius: 5px;
+      font-weight: bold;
+      position: absolute;
+      top: 270px;
+      left: 72.5%;
+      height: 25px;
+      width: auto;
+      transition: all 0.5s ease;
     }
+
+    #btn_api:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, #6588d7, #6588d7, #e77ee7);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+      z-index: -1;
+    }
+
+    #btn_api:hover {
+      background: linear-gradient(to right, #6588d7, #6588d7, #e77ee7);
+      border: 1px solid #007bff;
+    }
+
+    #btn_api:hover:before {
+      transform: scaleX(1);
+      transition: transform 0.5s ease;
+    } */
+
+    /* #input_api {
+      position: absolute;
+      top: 270px;
+      left: 5%;
+      width: 62.5%;
+    } */
   </style>
 </head>
 
@@ -148,10 +202,16 @@
   <br>
   <label id="label_file" for="input_file">__FailtoLoadi18n__</label>
   <input id="input_file" type="file" accept="image/*" title="__FailtoLoadi18n__">
+  <!-- 文件夹读取图片
   <br>
   <label id="label_multi">__FailtoLoadi18n__</label>
   <label id="label_folder" for="input_folder">__FailtoLoadi18n__</label>
-  <input id="input_folder" type="file" title="__FailtoLoadi18n__" directory webkitdirectory mozdirectory>
+  <input id="input_folder" type="file" title="__FailtoLoadi18n__" directory multiple webkitdirectory> -->
+  <!-- API获取图片
+  <br>
+  <label id="label_api" for="input_api">__FailtoLoadi18n__</label>
+  <input id="input_api" type="url" placeholder="__FailtoLoadi18n__" title="__FailtoLoadi18n__">
+  <button id="btn_api">__FailtoLoadi18n__</button> -->
 
   <script src="./database.js"> </script>
   <script src="./utils.js"> </script>
