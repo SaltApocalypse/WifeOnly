@@ -51,22 +51,22 @@ function newtabLoad (mode) {
             console.error(error);
         });
     }
-    else if ('2' === mode) { // 调用图片API
-        // databaseFetch(KEY_IMAGE).then((api) => {
-        //     fetch(api).then(response => {
-        //         if (!response.ok) {
-        //             alert(chrome.i18n.getMessage("actions_networkerror"));
-        //         }
-        //         return response.json();
-        //     }).then(data => {
-        //         const URL = data.images;
-        //         NEWTAB.style.background = "url(" + URL + ")";
-        //         newtabApplyStyles(NEWTAB, mode);
-        //     })
-        // }).catch((error) => {
-        //     console.error(error);
-        // });
-    }
+    // else if ('2' === mode) { // 调用图片API
+    //     databaseFetch(KEY_IMAGE).then((api) => {
+    //         fetch(api).then(response => {
+    //             if (!response.ok) {
+    //                 alert(chrome.i18n.getMessage("actions_networkerror"));
+    //             }
+    //             return response.json();
+    //         }).then(data => {
+    //             const URL = data.images;
+    //             NEWTAB.style.background = "url(" + URL + ")";
+    //             newtabApplyStyles(NEWTAB, mode);
+    //         })
+    //     }).catch((error) => {
+    //         console.error(error);
+    //     });
+    // }
     console.log("newtab: usermode " + mode + " loaded.");
 }
 
