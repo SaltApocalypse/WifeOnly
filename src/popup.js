@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 else {
                     alert(chrome.i18n.getMessage("actions_notapic"));
                 }
-            } catch { // 无网络链接的时候会导致无法检测
+            } catch { // 无网络链接的时候会导致无法检测// 无网络链接的时候会导致无法检测
                 alert(chrome.i18n.getMessage("actions_networkerror"));
             }
         }
