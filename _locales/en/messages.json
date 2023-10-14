@@ -1,0 +1,47 @@
+{
+    "basic_description": {
+        "message": "Customize your new tab background image! Nothing but the images you want to see, clean and simple!"
+    },
+    "actions_success": {
+        "message": "Modification successful!"
+    },
+    "actions_notapic": {
+        "message": "The input is not a valid image URL"
+    },
+    "actions_networkerror": {
+        "message": "Network Error!"
+    },
+    "ui_title_newtab": {
+        "message": "New Tab"
+    },
+    "ui_label_single": {
+        "message": ">> Select a single image as the Newtab image"
+    },
+    "ui_label_url": {
+        "message": "Enter the URL & click the button to update image:"
+    },
+    "ui_input_url": {
+        "message": "png, jpg, or jpeg are recommanded"
+    },
+    "ui_input_url_title": {
+        "message": "Supported (but not recommended): bmp, tiff, svg, gif"
+    },
+    "ui_btn_url": {
+        "message": "Load Image"
+    },
+    "ui_label_file": {
+        "message": "Or click the button below to load a local file:"
+    },
+    "ui_input_file_title": {
+        "message": "Note: Files larger than 3.5MB may cause issues"
+    },
+    "ui_label_multi": {
+        "message": ">> Select images from a folder for slideshow"
+    },
+    "ui_label_folder": {
+        "message": "Use (all) images from a local folder:"
+    },
+    "ui_input_folder_title": {
+        "message": "Warning: Experimental feature under development"
+    }
+}

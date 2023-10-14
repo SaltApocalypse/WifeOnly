@@ -1,0 +1,47 @@
+{
+    "basic_description": {
+        "message": "自选新标签页的背景图！除了你想要看的图片，清爽得没有任何东西！"
+    },
+    "actions_success": {
+        "message": "修改成功！"
+    },
+    "actions_notapic": {
+        "message": "输入的不是有效的图片URL"
+    },
+    "actions_networkerror": {
+        "message": "网络错误！"
+    },
+    "ui_title_newtab": {
+        "message": "新标签页"
+    },
+    "ui_label_single": {
+        "message": ">>>选定单张图作为背景"
+    },
+    "ui_label_url": {
+        "message": "请在下方框中输入图片地址(URL)后点击右侧按钮："
+    },
+    "ui_input_url": {
+        "message": "推荐使用png, jpg或jpeg格式"
+    },
+    "ui_input_url_title": {
+        "message": "（也许）支持但不建议：bmp, tiff, svg, gif"
+    },
+    "ui_btn_url": {
+        "message": "读取图片"
+    },
+    "ui_label_file": {
+        "message": "或点击下方按钮载入本地文件："
+    },
+    "ui_input_file_title": {
+        "message": "【提示】文件超过3.5M可能会导致问题出现"
+    },
+    "ui_label_multi": {
+        "message": ">>>选定文件夹内图片多图轮换作为背景"
+    },
+    "ui_label_folder": {
+        "message": "使用本地文件夹内（自动调用所有图片）："
+    },
+    "ui_input_folder_title": {
+        "message": "【警告】开发中实验功能"
+    }
+}

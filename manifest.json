@@ -1,0 +1,47 @@
+{
+    "manifest_version": 3,
+    "name": "WifeOnly",
+    "version": "1.1.0",
+    "description": "Customize your new tab background image! Nothing but the images you want to see, clean and simple!",
+    "author": "Salt Apocalypse",
+    "default_locale": "en",
+    "icons": {
+        "16": "./icons/icon_16x.ico",
+        "32": "./icons/icon_32x.ico",
+        "48": "./icons/icon_48x.ico",
+        "128": "./icons/icon_128x.ico"
+    },
+    "chrome_url_overrides": {
+        "newtab": "./src/newtab.html"
+    },
+    "action": {
+        "default_popup": "./src/popup.html",
+        "default_icon": {
+            "16": "./icons/icon_16x.ico",
+            "32": "./icons/icon_32x.ico",
+            "48": "./icons/icon_48x.ico",
+            "128": "./icons/icon_128x.ico"
+        }
+    },
+    "permissions": [
+        "storage",
+        "tabs"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                ".images/*.png",
+                ".images/*.jpg",
+                ".images/*.jpeg",
+                ".images/*.bmp",
+                ".images/*.svg",
+                ".images/*.tiff",
+                ".images/*.gif"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "offline_enabled": true
+}
